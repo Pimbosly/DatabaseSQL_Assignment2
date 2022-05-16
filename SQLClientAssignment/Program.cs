@@ -18,7 +18,7 @@ namespace SQLClientAssignment
             Console.WriteLine("finished");
             Customer selectedCustomer = new Customer();
             selectedCustomer = repository.GetCustomerById(2);
-            Console.WriteLine($"Customer with id {selectedCustomer.Id}, first name {selectedCustomer.FirstName} and last name {selectedCustomer.LastName}");
+            Console.WriteLine($"Customer with id {selectedCustomer.Id}, first name {selectedCustomer.FirstName} and last name {selectedCustomer.LastName}, lives in {selectedCustomer.Country}");
         }
     }
 }

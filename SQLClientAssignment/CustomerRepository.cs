@@ -30,13 +30,18 @@ namespace SQLClientAssignment
 
                 // Process results
                 while (reader.Read())
-                {
-                    Customer customer = new Customer()
-                    {
-                        Id = reader.GetInt32(0),
-                        FirstName = reader.GetString(1),
-                        LastName = reader.GetString(2)
-                    };
+                { 
+                    Customer customer = new Customer();
+
+                    customer.Id = reader.GetInt32(0);
+                    customer.FirstName = reader.GetString(1);
+                    customer.LastName = reader.GetString(2);
+                    // For columns that are allowed to have null values, first check if value is null before using GetString method
+                    if (!reader.IsDBNull(7)) customer.Country = reader.GetString(7); else customer.Country = null;
+                    if (!reader.IsDBNull(8)) customer.PostalCode = reader.GetString(7); else customer.PostalCode = null;
+                    if (!reader.IsDBNull(9)) customer.PhoneNumber = reader.GetString(7); else customer.PhoneNumber = null;
+                    if (!reader.IsDBNull(11)) customer.Email = reader.GetString(7); else customer.Email = null;
+
                     customers.Add(customer);
                 }
             }
@@ -74,6 +79,11 @@ namespace SQLClientAssignment
                     customer.Id = reader.GetInt32(0);
                     customer.FirstName = reader.GetString(1);
                     customer.LastName = reader.GetString(2);
+                    // For columns that are allowed to have null values, first check if value is null before using GetString method
+                    if (!reader.IsDBNull(7)) customer.Country = reader.GetString(7); else customer.Country = null;
+                    if (!reader.IsDBNull(8)) customer.PostalCode = reader.GetString(7); else customer.PostalCode = null;
+                    if (!reader.IsDBNull(9)) customer.PhoneNumber = reader.GetString(7); else customer.PhoneNumber = null;
+                    if (!reader.IsDBNull(11)) customer.Email = reader.GetString(7); else customer.Email = null;
                 }
             }
             catch (SqlException ex)
