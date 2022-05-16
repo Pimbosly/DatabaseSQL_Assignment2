@@ -60,20 +60,21 @@ namespace SQLClientAssignment
                 dbConnection.Open();
 
                 // Prepare command
-                string sql = "SELECT FROM Customer WHERE ID = @customerID";
+                string sql = "SELECT * FROM Customer WHERE CustomerId=@customerID";
                 int customerID = id;
 
                 //Execute command
                 SqlCommand command = new SqlCommand(sql, dbConnection);
+                command.Parameters.AddWithValue("@customerID", id);
                 SqlDataReader reader = command.ExecuteReader();
 
                 // Process results
-                if (reader.Read())
+                while (reader.Read())
                 {
                     customer.Id = reader.GetInt32(0);
                     customer.FirstName = reader.GetString(1);
                     customer.LastName = reader.GetString(2);
-                };
+                }
             }
             catch (SqlException ex)
             {
