@@ -12,7 +12,7 @@ Name varchar(32) UNIQUE NOT NULL
 );
 
 CREATE TABLE Power(
-id int IDENTITY(1,1) primary key,
+Id int IDENTITY(1,1) primary key,
 Name varchar(32) UNIQUE NOT NULL,
 Description varchar(64)
 );
