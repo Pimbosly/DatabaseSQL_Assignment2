@@ -13,5 +13,6 @@ namespace SQLClientAssignment
         List<Customer> GetCustomersByName(string name);
         List<Customer> GetPageOfCustomers(int limit, int offset);
         void AddCustomer(Customer customer);
+        void UpdateCustomer(int id, CustomerField customerField, string newValue);
     }
 }

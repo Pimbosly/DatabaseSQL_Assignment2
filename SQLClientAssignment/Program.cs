@@ -49,6 +49,12 @@ namespace SQLClientAssignment
             newCustomer.Email = "harry@hogwarts.com";
             repository.AddCustomer(newCustomer);
 
+            // Update customer
+            repository.UpdateCustomer(1, CustomerField.Country, "Italy");
+            Customer updatedCustomer = new Customer();
+            updatedCustomer = repository.GetCustomerById(1);
+            Display.DisplayCustomer(updatedCustomer);
+
         }
     }
 }

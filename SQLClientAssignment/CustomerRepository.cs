@@ -68,7 +68,7 @@ namespace SQLClientAssignment
                 string sql = "SELECT * FROM Customer WHERE CustomerId=@customerID";
                 int customerID = id;
 
-                //Execute command
+                // Execute command
                 SqlCommand command = new SqlCommand(sql, dbConnection);
                 command.Parameters.AddWithValue("@customerID", customerID);
                 SqlDataReader reader = command.ExecuteReader();
@@ -109,7 +109,7 @@ namespace SQLClientAssignment
                 string sql = "SELECT * FROM Customer WHERE LastName LIKE '%' + @customerLASTNAME + '%'"; 
                 string customerLASTNAME = name;
 
-                //Execute command
+                // Execute command
                 SqlCommand command = new SqlCommand(sql, dbConnection);
                 command.Parameters.AddWithValue("@customerLASTNAME", customerLASTNAME);
                 SqlDataReader reader = command.ExecuteReader();
@@ -155,7 +155,7 @@ namespace SQLClientAssignment
                 int pageLimit = limit;
                 int pageOffset = offset;
 
-                //Execute command
+                // Execute command
                 SqlCommand command = new SqlCommand(sql, dbConnection);
                 command.Parameters.AddWithValue("@limit", pageLimit);
                 command.Parameters.AddWithValue("@offset", pageOffset);
@@ -205,7 +205,7 @@ namespace SQLClientAssignment
                 string? phoneNumber = customer.PhoneNumber;
                 string? email = customer.Email;
 
-                //Execute command
+                // Execute command
                 SqlCommand command = new SqlCommand(sql, dbConnection);
                 command.Parameters.AddWithValue("@FirstName", firstName);
                 command.Parameters.AddWithValue("@LastName", lastName);
@@ -213,7 +213,47 @@ namespace SQLClientAssignment
                 command.Parameters.AddWithValue("@PostalCode", postalCode);
                 command.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
                 command.Parameters.AddWithValue("@Email", email);
-                command.ExecuteNonQuery(); 
+                command.ExecuteNonQuery();
+
+                // Print confirmation
+                Console.WriteLine($"Added customer {customer.FirstName} {customer.LastName} to database.");
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void UpdateCustomer(int id, CustomerField customerField, string newValue)
+        {
+            try
+            {
+                // Set up connetion
+                using SqlConnection dbConnection = new SqlConnection(ConnectionConfig.GetConnectionString());
+
+                // Open connection
+                dbConnection.Open();
+
+                // Prepare field that needs to be updated
+                Enum fieldToUpdateEnum = customerField;
+                string fieldToUpdate = fieldToUpdateEnum.ToString();
+                Console.WriteLine(fieldToUpdate);
+
+                // Prepare command
+                string sql = "UPDATE Customer SET @Field=@NewValue WHERE CustomerId=@CustomerID";
+                int customerID = id;
+                string fieldName = fieldToUpdate;
+                string valueInput = newValue;
+
+                // Execute command
+                SqlCommand command = new SqlCommand(sql, dbConnection);
+                command.Parameters.AddWithValue("@CustomerID", customerID);
+                command.Parameters.AddWithValue("@Field", fieldName);
+                command.Parameters.AddWithValue("@NewValue", valueInput);
+                command.ExecuteNonQuery();
+
+                // Print confirmation
+                Console.WriteLine($"Updated customer with id {customerID}");
             }
             catch (SqlException ex)
             {
