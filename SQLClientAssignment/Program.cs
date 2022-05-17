@@ -13,12 +13,12 @@ namespace SQLClientAssignment
             ourCustomers = repository.GetAllCustomers();
             foreach (Customer customer in ourCustomers)
             {
-                Console.WriteLine($"Customer with id {customer.Id}, first name {customer.FirstName} and last name {customer.LastName}");
+                Display.DisplayCustomer(customer);
             }
-            Console.WriteLine("finished");
+            Console.WriteLine("Finished printing all customers\n");
             Customer selectedCustomer = new Customer();
             selectedCustomer = repository.GetCustomerById(2);
-            Console.WriteLine($"Customer with id {selectedCustomer.Id}, first name {selectedCustomer.FirstName} and last name {selectedCustomer.LastName}, lives in {selectedCustomer.Country}");
+            Display.DisplayCustomer(selectedCustomer);
         }
     }
 }
