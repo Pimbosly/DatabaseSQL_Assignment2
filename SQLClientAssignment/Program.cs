@@ -8,17 +8,28 @@ namespace SQLClientAssignment
     {
         static void Main(string[] args)
         {
-            List<Customer> ourCustomers = new List<Customer>();
+            // Read and display all customers
+            List<Customer> allCustomers = new List<Customer>();
             ICustomerRepository repository = new CustomerRepository();
-            ourCustomers = repository.GetAllCustomers();
-            foreach (Customer customer in ourCustomers)
+            allCustomers = repository.GetAllCustomers();
+            foreach (Customer customer in allCustomers)
             {
                 Display.DisplayCustomer(customer);
             }
             Console.WriteLine("Finished printing all customers\n");
+
+            // Read and display customer by id
             Customer selectedCustomer = new Customer();
             selectedCustomer = repository.GetCustomerById(2);
             Display.DisplayCustomer(selectedCustomer);
+
+            // Read and display customer(s) by (part of) name
+            List<Customer> customersByName = new List<Customer>();
+            customersByName = repository.GetCustomersByName("Mi");
+            foreach (Customer customer in customersByName)
+            {
+                Display.DisplayCustomer(customer);
+            }
         }
     }
 }

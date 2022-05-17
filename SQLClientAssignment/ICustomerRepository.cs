@@ -10,5 +10,6 @@ namespace SQLClientAssignment
     {
         List<Customer> GetAllCustomers();
         Customer GetCustomerById(int id);
+        List<Customer> GetCustomersByName(string name);
     }
 }
