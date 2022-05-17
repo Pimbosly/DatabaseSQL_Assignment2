@@ -138,5 +138,52 @@ namespace SQLClientAssignment
 
             return customers;
         }
+
+        public List<Customer> GetPageOfCustomers(int limit, int offset)
+        {
+            List<Customer> customers = new List<Customer>();
+            try
+            {
+                // Set up connetion
+                using SqlConnection dbConnection = new SqlConnection(ConnectionConfig.GetConnectionString());
+
+                // Open connection
+                dbConnection.Open();
+
+                // Prepare command
+                string sql = "SELECT * FROM Customer ORDER BY CustomerId OFFSET @offset ROWS FETCH NEXT @limit ROWS ONLY";
+                int pageLimit = limit;
+                int pageOffset = offset;
+
+                //Execute command
+                SqlCommand command = new SqlCommand(sql, dbConnection);
+                command.Parameters.AddWithValue("@limit", pageLimit);
+                command.Parameters.AddWithValue("@offset", pageOffset);
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Process results
+                while (reader.Read())
+                {
+                    Customer customer = new Customer();
+
+                    customer.Id = reader.GetInt32(0);
+                    customer.FirstName = reader.GetString(1);
+                    customer.LastName = reader.GetString(2);
+                    // For columns that are allowed to have null values, first check if value is null before using GetString method
+                    if (!reader.IsDBNull(7)) customer.Country = reader.GetString(7); else customer.Country = null;
+                    if (!reader.IsDBNull(8)) customer.PostalCode = reader.GetString(8); else customer.PostalCode = null;
+                    if (!reader.IsDBNull(9)) customer.PhoneNumber = reader.GetString(9); else customer.PhoneNumber = null;
+                    if (!reader.IsDBNull(11)) customer.Email = reader.GetString(11); else customer.Email = null;
+
+                    customers.Add(customer);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return customers;
+        }
     }
 }

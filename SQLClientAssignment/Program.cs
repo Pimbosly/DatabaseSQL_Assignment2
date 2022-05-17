@@ -30,6 +30,14 @@ namespace SQLClientAssignment
             {
                 Display.DisplayCustomer(customer);
             }
+
+            // Read and display page of customers, using limit and offset
+            List<Customer> pageOfCustomers = new List<Customer>();
+            pageOfCustomers = repository.GetPageOfCustomers(10, 0);
+            foreach (Customer customer in pageOfCustomers)
+            {
+                Display.DisplayCustomer(customer);
+            }
         }
     }
 }
