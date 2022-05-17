@@ -70,7 +70,7 @@ namespace SQLClientAssignment
 
                 //Execute command
                 SqlCommand command = new SqlCommand(sql, dbConnection);
-                command.Parameters.AddWithValue("@customerID", id);
+                command.Parameters.AddWithValue("@customerID", customerID);
                 SqlDataReader reader = command.ExecuteReader();
 
                 // Process results
@@ -111,7 +111,7 @@ namespace SQLClientAssignment
 
                 //Execute command
                 SqlCommand command = new SqlCommand(sql, dbConnection);
-                command.Parameters.AddWithValue("@customerLASTNAME", name);
+                command.Parameters.AddWithValue("@customerLASTNAME", customerLASTNAME);
                 SqlDataReader reader = command.ExecuteReader();
 
                 // Process results
