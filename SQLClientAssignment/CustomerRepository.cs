@@ -185,5 +185,40 @@ namespace SQLClientAssignment
 
             return customers;
         }
+
+        public void AddCustomer(Customer customer)
+        {
+            try
+            {
+                // Set up connetion
+                using SqlConnection dbConnection = new SqlConnection(ConnectionConfig.GetConnectionString());
+
+                // Open connection
+                dbConnection.Open();
+
+                // Prepare command
+                string sql = "INSERT INTO Customer (FirstName, LastName, Country, PostalCode, Phone, Email) VALUES (@FirstName, @LastName, @Country, @PostalCode, @PhoneNumber, @Email)";
+                string firstName = customer.FirstName;
+                string lastName = customer.LastName;
+                string? country = customer.Country;
+                string? postalCode = customer.PostalCode;
+                string? phoneNumber = customer.PhoneNumber;
+                string? email = customer.Email;
+
+                //Execute command
+                SqlCommand command = new SqlCommand(sql, dbConnection);
+                command.Parameters.AddWithValue("@FirstName", firstName);
+                command.Parameters.AddWithValue("@LastName", lastName);
+                command.Parameters.AddWithValue("@Country", country);
+                command.Parameters.AddWithValue("@PostalCode", postalCode);
+                command.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+                command.Parameters.AddWithValue("@Email", email);
+                command.ExecuteNonQuery(); 
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

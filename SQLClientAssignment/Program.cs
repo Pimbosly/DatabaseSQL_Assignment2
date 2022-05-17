@@ -38,6 +38,17 @@ namespace SQLClientAssignment
             {
                 Display.DisplayCustomer(customer);
             }
+
+            // Add new customer
+            Customer newCustomer = new Customer();
+            newCustomer.FirstName = "Harry";
+            newCustomer.LastName = "Potter";
+            newCustomer.Country = "England";
+            newCustomer.PostalCode = "XXX";
+            newCustomer.PhoneNumber = "1234567";
+            newCustomer.Email = "harry@hogwarts.com";
+            repository.AddCustomer(newCustomer);
+
         }
     }
 }
