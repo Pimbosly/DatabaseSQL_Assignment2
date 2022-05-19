@@ -13,6 +13,9 @@ namespace SQLClientAssignment
         List<Customer> GetCustomersByName(string name);
         List<Customer> GetPageOfCustomers(int limit, int offset);
         void AddCustomer(Customer customer);
-        void UpdateCustomer(int id, CustomerField customerField, string newValue);
+        void UpdateCustomer(Customer customer);
+        List<CustomerCountry> GetCountriesByFrequency();
+        List<CustomerSpender> GetHighestSpenders();
+        List<CustomerGenre> GetMostPopularGenre(Customer customer);
     }
 }

@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace SQLClientAssignment
 {
-    public enum CustomerField
+    public class CustomerGenre
     {
-        FirstName,
-        LastName,
-        Country,
-        PostalCode,
-        Phone,
-        Email
+        public string GenreName { get; set; }
+        public int TrackAmount { get; set; }
     }
 }
